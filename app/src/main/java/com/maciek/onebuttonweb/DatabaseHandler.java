@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -24,6 +26,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class DatabaseHandler extends AppCompatActivity implements View.OnClickListener {
 
@@ -34,6 +39,7 @@ public class DatabaseHandler extends AppCompatActivity implements View.OnClickLi
     private JSONObject jsonObject;
     private String qrcodeText;
     private Button button_cofirm_update;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,20 @@ public class DatabaseHandler extends AppCompatActivity implements View.OnClickLi
         button_cofirm_update = (Button)findViewById(R.id.button_confirm_update);
         new test().execute();
         button_cofirm_update.setOnClickListener(this);
+
+        toolbar = (Toolbar)findViewById(R.id.my_toolbar_mainactivity_2);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     private void updateDatabase(String qrcode, String location){
@@ -58,6 +78,9 @@ public class DatabaseHandler extends AppCompatActivity implements View.OnClickLi
          */
         WebView webView_status = (WebView)findViewById(R.id.webview_update_database);
         webView_status.loadUrl(url_change_status);
+
+        DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+        String date = df.format(Calendar.getInstance().getTime());
 
         WebView webView_location = (WebView)findViewById(R.id.webview_update_location);
         String url_change_location = "http://android.x25.pl/insertlocationprezent.php?lokalizacja=" +location +"&qrcode=" + qrcode;

@@ -1,14 +1,26 @@
 package com.maciek.onebuttonweb;
 
+import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class LocalizationPreference extends AppCompatActivity implements View.OnClickListener {
 
@@ -18,6 +30,7 @@ public class LocalizationPreference extends AppCompatActivity implements View.On
     public SharedPreferences sharedPreferences;
     public static final String MY_PREFERENCES = "MyPrefs";
     public static final String LOCATION_KEYS = "locationKeys";
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +40,12 @@ public class LocalizationPreference extends AppCompatActivity implements View.On
         textView_pref_location = (TextView)findViewById(R.id.textView_pref_location);
         editText_pref_location = (EditText)findViewById(R.id.editText_pref_location);
         button_pref_location = (Button)findViewById(R.id.button_pref_location);
+        toolbar = (Toolbar)findViewById(R.id.my_toolbar_localization);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
 
         sharedPreferences = getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
         if(sharedPreferences!=null){
@@ -35,6 +54,12 @@ public class LocalizationPreference extends AppCompatActivity implements View.On
         button_pref_location.setOnClickListener(this);
 
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     @Override
