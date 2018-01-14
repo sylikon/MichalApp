@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Choinka</string>
+    <string name="action_location">Lokalizacja</string>
+    <string name="action_qrscanner">Qr Scanner</string>
+    <string name="location_text">Obecna lokalizacja to: </string>
+    <string name="current_location">brak, proszę uzupełnić </string>
+    <string name="edit_text_location">lokalizacja </string>
+    <string name="button_location">Zmień </string>
+    <string name="database_confrim_textView">Czy chcesz zaktualizowac baze danych? </string>
+    <string name="database_confirm_button">Aktualizuj </string>
+
+</resources>
