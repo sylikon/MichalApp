@@ -78,13 +78,12 @@ public class DatabaseHandler extends AppCompatActivity implements View.OnClickLi
          */
         WebView webView_status = (WebView)findViewById(R.id.webview_update_database);
         webView_status.loadUrl(url_change_status);
-
-        DateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-        String date = df.format(Calendar.getInstance().getTime());
-
+        
         WebView webView_location = (WebView)findViewById(R.id.webview_update_location);
         String url_change_location = "http://android.x25.pl/insertlocationprezent.php?lokalizacja=" +location +"&qrcode=" + qrcode;
         webView_location.loadUrl(url_change_location);
+        
+        new test.execute();
 
     }
 
@@ -115,8 +114,8 @@ public class DatabaseHandler extends AppCompatActivity implements View.OnClickLi
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-
-                URL url = new URL("http://android.x25.pl/fetchdataprezent.php");
+                String url_fetch_qrcode = "http://android.x25.pl/fetchdataprezent.php?qrcode="+qrcode; 
+                URL url = new URL(url_fetch_qrcode);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -158,13 +157,15 @@ public class DatabaseHandler extends AppCompatActivity implements View.OnClickLi
 
                     jsonObject = new JSONObject(data);
                     JSONArray weather = jsonObject.getJSONArray("dzieci");
-                    for (int i = 0; i < weather.length(); i++) {
-                        JSONObject w = weather.getJSONObject(i);
-                        if (w.get("qrcode").equals(qrcodeText)) {
-                            parsed = w.getString("email") + "\n" +
-                                    "wybrał dziecko : " + w.get("dziecko");
+                    
+                    JSONObject w = weather.getJSONObject(0);
+                        
+                    parsed = w.getString("email") + "\n" +
+                                            "wybrał dziecko : " + w.get("dziecko") + "\n"+
+                                            "status: " + w.get("status") + "\n"+
+                                            "odebrano w: " + w.get("lokalizacja");
 
-                        }
+                       
 
                     }
 
