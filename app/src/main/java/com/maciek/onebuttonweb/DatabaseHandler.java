@@ -167,9 +167,9 @@ public class DatabaseHandler extends AppCompatActivity implements View.OnClickLi
 
                        
 
-                    }
+                    
 
-                } catch (JSONException e) {
+                    } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 textView_record_details.setText("użytkownik z nikiem: " + parsed);
