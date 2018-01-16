@@ -83,7 +83,7 @@ public class DatabaseHandler extends AppCompatActivity implements View.OnClickLi
         String url_change_location = "http://android.x25.pl/insertlocationprezent.php?lokalizacja=" +location +"&qrcode=" + qrcode;
         webView_location.loadUrl(url_change_location);
         
-        new test.execute();
+        new test().execute();
 
     }
 
@@ -114,7 +114,7 @@ public class DatabaseHandler extends AppCompatActivity implements View.OnClickLi
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                String url_fetch_qrcode = "http://android.x25.pl/fetchdataprezent.php?qrcode="+qrcode; 
+                String url_fetch_qrcode = "http://android.x25.pl/fetchdataprezent.php?qrcode="+qrcodeText;
                 URL url = new URL(url_fetch_qrcode);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 InputStream inputStream = httpURLConnection.getInputStream();
